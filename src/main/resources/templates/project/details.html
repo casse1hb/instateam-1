@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head th:replace="layout :: head"></head>
+
+<body>
+<header th:replace="layout :: header"></header>
+<nav th:replace="layout :: nav"></nav>
+
+<section>
+    <div th:replace="layout :: flash"></div>
+    <div class="container wrapper">
+        <div class="project-list single" th:object="${project}">
+            <div class="project">
+                <h2 th:text="*{name}">Website Project</h2>
+                <h3>Starting on: <span th:text="*{#temporals.format(startDate, 'dd MMM yyyy')}"></span></h3>
+                <p th:text="*{description}">Design and build a custom website</p>
+                <span class="tag" th:text="*{status.name}" th:classappend="*{status.state}">Active</span>
+                <a class="button button-delete" th:href="@{|/projects/${project.id}/delete|}">
+                    <i class="material-icons md-18">delete</i>
+                </a>
+            </div>
+            <div class="roles-collaborators">
+                <h3>Roles &amp; Collaborators</h3>
+                <div class="list-item" th:if="*{rolesNeeded.isEmpty()}">There are no roles and collaborators assigned to
+                    this
+                    project
+                </div>
+                <div class="list-item" th:each="role : *{emptyRoles}">
+                    <span class="primary" th:text="${role.name}">Developer</span>
+                    <span class="secondary">No collaborator assigned</span>
+                </div>
+                <div class="list-item" th:each="collaborator : *{collaborators}">
+                    <span class="primary" th:if="${collaborator.role} != null" th:text="${collaborator.role.name}">Developer</span>
+                    <span class="secondary" th:text="${collaborator.name}">Michael Pemulis</span>
+                </div>
+            </div>
+            <div class="actions">
+                <a class="button" th:href="@{|/projects/*{id}/edit|}">Edit Project</a>
+                <a class="button" th:href="@{|/projects/*{id}/collaborators|}">Edit Collaborators</a>
+            </div>
+        </div>
+    </div>
+</section>
+
+</body>
+
+</html>

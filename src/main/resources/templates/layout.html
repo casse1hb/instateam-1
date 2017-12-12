@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+
+<head th:fragment="head">
+    <meta charset="utf-8"/>
+    <meta http-equiv="x-ua-compatible" content="ie=edge"/>
+    <title>InstaTeam</title>
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Inconsolata:400,700"/>
+    <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons"/>
+    <link rel="stylesheet" th:href="@{/css/normalize.css}"/>
+    <link rel="stylesheet" th:href="@{/css/site.css}"/>
+</head>
+
+<body>
+<header th:fragment="header">
+    <div class="container">
+        <div class="site-header">
+            <a class="logo" th:href="@{/}">InstaTeam</a>
+            <a class="new-project button icon-left" th:href="@{/projects/add}"><i class="material-icons">add</i> New
+                Project</a>
+        </div>
+    </div>
+</header>
+
+<nav th:fragment="nav">
+    <ul>
+        <li th:classappend="${focus} == 'projects' ? 'selected' : ''"><a th:href="@{/}">Projects</a></li>
+        <li th:classappend="${focus} == 'collaborators' ? 'selected' : ''"><a
+                th:href="@{/collaborators}">Collaborators</a></li>
+        <li th:classappend="${focus} == 'roles' ? 'selected' : ''"><a th:href="@{/roles}">Roles</a></li>
+    </ul>
+</nav>
+
+<div th:fragment="flash" th:if="${flash != null}" class="container">
+    <div th:classappend="${#strings.toLowerCase(flash.status)}" th:text="${flash.message}" class="flash"></div>
+</div>
+
+</body>
+
+</html>
